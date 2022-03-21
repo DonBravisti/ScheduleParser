@@ -13,3 +13,19 @@ D:\ПМ-2021\Stas Butov\ScheduleParser\ScheduleParser\obj\Debug\ScheduleParser.c
 D:\ПМ-2021\Stas Butov\ScheduleParser\ScheduleParser\obj\Debug\ScheduleParser.exe
 D:\ПМ-2021\Stas Butov\ScheduleParser\ScheduleParser\obj\Debug\ScheduleParser.pdb
 D:\ПМ-2021\Stas Butov\ScheduleParser\ScheduleParser\obj\Debug\ScheduleParser.Form1.resources
+C:\Programs\Microsoft Visual Studio\Projects\ScheduleParser-main\ScheduleParser\bin\Debug\ScheduleParser.exe.config
+C:\Programs\Microsoft Visual Studio\Projects\ScheduleParser-main\ScheduleParser\bin\Debug\ScheduleParser.exe
+C:\Programs\Microsoft Visual Studio\Projects\ScheduleParser-main\ScheduleParser\bin\Debug\ScheduleParser.pdb
+C:\Programs\Microsoft Visual Studio\Projects\ScheduleParser-main\ScheduleParser\bin\Debug\Newtonsoft.Json.dll
+C:\Programs\Microsoft Visual Studio\Projects\ScheduleParser-main\ScheduleParser\bin\Debug\ScheduleModels.dll
+C:\Programs\Microsoft Visual Studio\Projects\ScheduleParser-main\ScheduleParser\bin\Debug\ScheduleModels.pdb
+C:\Programs\Microsoft Visual Studio\Projects\ScheduleParser-main\ScheduleParser\bin\Debug\Newtonsoft.Json.xml
+C:\Programs\Microsoft Visual Studio\Projects\ScheduleParser-main\ScheduleParser\obj\Debug\ScheduleParser.csproj.AssemblyReference.cache
+C:\Programs\Microsoft Visual Studio\Projects\ScheduleParser-main\ScheduleParser\obj\Debug\ScheduleParser.csproj.ResolveComReference.cache
+C:\Programs\Microsoft Visual Studio\Projects\ScheduleParser-main\ScheduleParser\obj\Debug\ScheduleParser.Properties.Resources.resources
+C:\Programs\Microsoft Visual Studio\Projects\ScheduleParser-main\ScheduleParser\obj\Debug\ScheduleParser.csproj.GenerateResource.cache
+C:\Programs\Microsoft Visual Studio\Projects\ScheduleParser-main\ScheduleParser\obj\Debug\ScheduleParser.csproj.CoreCompileInputs.cache
+C:\Programs\Microsoft Visual Studio\Projects\ScheduleParser-main\ScheduleParser\obj\Debug\ScheduleParser.csproj.CopyComplete
+C:\Programs\Microsoft Visual Studio\Projects\ScheduleParser-main\ScheduleParser\obj\Debug\ScheduleParser.exe
+C:\Programs\Microsoft Visual Studio\Projects\ScheduleParser-main\ScheduleParser\obj\Debug\ScheduleParser.pdb
+C:\Programs\Microsoft Visual Studio\Projects\ScheduleParser-main\ScheduleParser\obj\Debug\ScheduleParser.FormMain.resources
