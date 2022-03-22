@@ -32,7 +32,7 @@ namespace ScheduleParser
         private void button1_Click(object sender, EventArgs e)
         {
             App = new Excel.Application();
-            Workbook = App.Workbooks.Open("C:/Programs/Microsoft Visual Studio/Projects/ScheduleParser-main/ScheduleParser/bin/Debug/schedule1.xlsm");
+            Workbook = App.Workbooks.Open(@"D:\ПМ-2021\Stas Butov\ScheduleParser-main\ScheduleParser\bin\Debug\schedule1.xlsm");
             
             Worksheet = Workbook.Sheets[1];
             Faculty = new Faculty();
@@ -51,53 +51,69 @@ namespace ScheduleParser
                     string fullCoupleName = Worksheet.Cells[j, i.ToString()].Text.ToString();
                     if (fullCoupleName == "") continue;
 
-                    if (j % 2 == 1) Couple.Week = "1";
-                    else Couple.Week = "2";
-                    if (i == 'C')
-                    {
-                        Couple.SubgroupId = "1";
-                        Couple.SubgroupName = "Подгруппа 1";
-                    }
-                    else
-                    {
-                        Couple.SubgroupId = "2";
-                        Couple.SubgroupName = "Подгруппа 2";
-                    }
-
-                    Couple.Day = GetDay(j);
-
-                    string numAndTime;
-                    if (Couple.Week == "1") numAndTime = Worksheet.Cells[j, "B"].Text.ToString();
-                    else numAndTime = Worksheet.Cells[j - 1, "B"].Text.ToString();
-                    Couple.CoupleNum = numAndTime[0].ToString();
-                    var temp = numAndTime.Split();
-                    Couple.TimeBegin = temp[2].Split('-')[0];
-                    Couple.TimeEnd = temp[2].Split('-')[1]; //херня происходит
-
-                    string[] parsedCoupleName = fullCoupleName.Split(new string[] { ", " }, StringSplitOptions.None);
-                    Couple.CoupleName = parsedCoupleName[0];
-                    Couple.CoupleTeacher = parsedCoupleName[1];
-                    Couple.CoupleAud = parsedCoupleName[2];
+                    DefineWeek(j);
+                    DefineSubgroup(i);
+                    DefineDay(j);
+                    DefineNumAndTime(j);
+                    DefineNameTeacherAndAud(fullCoupleName);
 
                     Group.Couples.Add(Couple);
                 }
             }
             JObject json = JObject.Parse(JsonConvert.SerializeObject(Group));
-            File.WriteAllText(@"C:\Programs\Microsoft Visual Studio\Projects\ScheduleParser-main\ScheduleParser\bin\Debug\Schedule.json", json.ToString());
+            File.WriteAllText(@"D:\ПМ-2021\Stas Butov\ScheduleParser-main\ScheduleParser\bin\Debug\Schedule.json", json.ToString());
             MessageBox.Show("Done");
 
             App.Quit();
         }
 
-        private string GetDay(int j)
+        private void DefineNameTeacherAndAud(string fullCoupleName)
         {
-            if (j >= 15 && j <= 22) return "monday";
-            if (j >= 23 && j <= 30) return "tuesday";
-            if (j >= 31 && j <= 38) return "wednesday";
-            if (j >= 39 && j <= 46) return "thursday";
-            if (j >= 47 && j <= 54) return "friday";
-            if (j >= 55 && j <= 62) return "saturday";
-            return null;
+            string[] parsedCoupleName = fullCoupleName.Split(new string[] { ", " }, StringSplitOptions.None);
+            Couple.CoupleName = parsedCoupleName[0];
+            Couple.CoupleTeacher = parsedCoupleName[1];
+            Couple.CoupleAud = parsedCoupleName[2];
+        }
+
+        private void DefineNumAndTime(int rowIndex)
+        {
+            string numAndTime;
+            if (Couple.Week == "1") numAndTime = Worksheet.Cells[rowIndex, "B"].Text.ToString();
+            else numAndTime = Worksheet.Cells[rowIndex - 1, "B"].Text.ToString();
+            Couple.CoupleNum = numAndTime[0].ToString();
+            var temp = numAndTime.Split(new string[] { "  ", " " }, StringSplitOptions.None);
+            Couple.TimeBegin = temp[2].Split('-')[0];
+            Couple.TimeEnd = temp[2].Split('-')[1];
+        }
+
+        private void DefineSubgroup(char charColumnIndex)
+        {
+            if (charColumnIndex == 'C')
+            {
+                Couple.SubgroupId = "1";
+                Couple.SubgroupName = "Подгруппа 1";
+            }
+            else
+            {
+                Couple.SubgroupId = "2";
+                Couple.SubgroupName = "Подгруппа 2";
+            }
+        }
+
+        private void DefineWeek(int rowIndex)
+        {
+            if (rowIndex % 2 == 1) Couple.Week = "1";
+            else Couple.Week = "2";
+        }
+
+        private void DefineDay(int rowIndex)
+        {
+            if (rowIndex >= 15 && rowIndex <= 22) Couple.Day = "monday";
+            if (rowIndex >= 23 && rowIndex <= 30) Couple.Day = "tuesday";
+            if (rowIndex >= 31 && rowIndex <= 38) Couple.Day = "wednesday";
+            if (rowIndex >= 39 && rowIndex <= 46) Couple.Day = "thursday";
+            if (rowIndex >= 47 && rowIndex <= 54) Couple.Day = "friday";
+            if (rowIndex >= 55 && rowIndex <= 62) Couple.Day = "saturday";
         }
     }
 }
