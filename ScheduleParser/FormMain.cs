@@ -32,24 +32,42 @@ namespace ScheduleParser
         private void button1_Click(object sender, EventArgs e)
         {
             App = new Excel.Application();
-            Workbook = App.Workbooks.Open(@"D:\ПМ-2021\Stas Butov\ScheduleParser-main\ScheduleParser\bin\Debug\schedule1.xlsm");
-            
-            Worksheet = Workbook.Sheets[1];
-            Faculty = new Faculty();
-            Group = new Group();
-            
+            Workbook = App.Workbooks.Open(@"C:\Programs\Microsoft Visual Studio\Projects\ScheduleParser-main\ScheduleParser\bin\Debug\schedule.xlsx");
+            Faculty = new Faculty
+            {
+                Groups = new List<Group>()
+            };
 
-            Faculty.FacultyName = Worksheet.Cells[7, "A"].Text.ToString();
-            Group.GroupName = Worksheet.Cells[8, "A"].Text.ToString();
-            Group.GroupId = Worksheet.Name;
-            Group.Couples = new List<Couple>();
+            for (int r = 1; r <= Workbook.Sheets.Count; r++)
+            {
+                Worksheet = Workbook.Sheets[r];
+                Faculty.FacultyName = Worksheet.Cells[7, "A"].Text.ToString();
+                Group = new Group
+                {
+                    GroupName = Worksheet.Cells[8, "A"].Text.ToString(),
+                    GroupId = Worksheet.Name,
+                    Couples = new List<Couple>()
+                };
+
+                ReadGroup();
+                Faculty.Groups.Add(Group);
+            }
+            JObject json = JObject.Parse(JsonConvert.SerializeObject(Faculty));
+            File.WriteAllText(@"C:\Programs\Microsoft Visual Studio\Projects\ScheduleParser-main\ScheduleParser\bin\Debug\Schedule.json", json.ToString());
+            MessageBox.Show("Done");
+
+            App.Quit();
+        }
+
+        private void ReadGroup()
+        {
             for (var i = 'C'; i <= 'D'; i++)
             {
                 for (int j = 15; j < 63; j++)
                 {
                     Couple = new Couple();
                     string fullCoupleName = Worksheet.Cells[j, i.ToString()].Text.ToString();
-                    if (fullCoupleName == "") continue;
+                    if (fullCoupleName == "" || fullCoupleName == " ") continue;
 
                     DefineWeek(j);
                     DefineSubgroup(i);
@@ -60,11 +78,6 @@ namespace ScheduleParser
                     Group.Couples.Add(Couple);
                 }
             }
-            JObject json = JObject.Parse(JsonConvert.SerializeObject(Group));
-            File.WriteAllText(@"D:\ПМ-2021\Stas Butov\ScheduleParser-main\ScheduleParser\bin\Debug\Schedule.json", json.ToString());
-            MessageBox.Show("Done");
-
-            App.Quit();
         }
 
         private void DefineNameTeacherAndAud(string fullCoupleName)
@@ -81,23 +94,17 @@ namespace ScheduleParser
             if (Couple.Week == "1") numAndTime = Worksheet.Cells[rowIndex, "B"].Text.ToString();
             else numAndTime = Worksheet.Cells[rowIndex - 1, "B"].Text.ToString();
             Couple.CoupleNum = numAndTime[0].ToString();
-            var temp = numAndTime.Split(new string[] { "  ", " " }, StringSplitOptions.None);
-            Couple.TimeBegin = temp[2].Split('-')[0];
-            Couple.TimeEnd = temp[2].Split('-')[1];
+            var temp = numAndTime.Replace(" ", "").Substring(5);
+            var timeBegin = temp.Split('-')[0];
+            var timeEnd = temp.Split('-')[1];
+            Couple.TimeBegin = timeBegin.Length == 3 ? timeBegin.Insert(1, ":") : timeBegin.Insert(2, ":");
+            Couple.TimeEnd = timeEnd.Length == 3 ? timeEnd.Insert(1, ":") : timeEnd.Insert(2, ":");
         }
 
         private void DefineSubgroup(char charColumnIndex)
         {
-            if (charColumnIndex == 'C')
-            {
-                Couple.SubgroupId = "1";
-                Couple.SubgroupName = "Подгруппа 1";
-            }
-            else
-            {
-                Couple.SubgroupId = "2";
-                Couple.SubgroupName = "Подгруппа 2";
-            }
+            Couple.SubgroupId = charColumnIndex == 'C' ? "1" : "2";
+            Couple.SubgroupName = charColumnIndex == 'C' ? "Подгруппа 1" : "Подгруппа 2";
         }
 
         private void DefineWeek(int rowIndex)
