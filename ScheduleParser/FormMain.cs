@@ -29,10 +29,11 @@ namespace ScheduleParser
             InitializeComponent();
         }
 
+        
         private void buttonReadSchedule_Click(object sender, EventArgs e)
-        {
+        {            
             App = new Excel.Application();
-            Workbook = App.Workbooks.Open(@"C:\Programs\Microsoft Visual Studio\Projects\ScheduleParser-main\ScheduleParser\bin\Debug\schedule.xlsx");
+            Workbook = App.Workbooks.Open(Directory.GetCurrentDirectory() + @"\schedule.xlsx");
             Faculty = new Faculty
             {
                 Groups = new List<Group>()
@@ -53,7 +54,7 @@ namespace ScheduleParser
                 Faculty.Groups.Add(Group);
             }
             JObject json = JObject.Parse(JsonConvert.SerializeObject(Faculty));
-            File.WriteAllText(@"C:\Programs\Microsoft Visual Studio\Projects\ScheduleParser-main\ScheduleParser\bin\Debug\Schedule.json", json.ToString());
+            File.WriteAllText(Directory.GetCurrentDirectory() + @"\Schedule.json", json.ToString());
             MessageBox.Show("Done");
 
             App.Quit();
@@ -84,6 +85,23 @@ namespace ScheduleParser
                     DefineNameTeacherAndAud(fullCoupleName);
 
                     Group.Couples.Add(Couple);
+                    if (Couple.Week == "1")
+                    {
+                        Couple temp = new Couple
+                        {
+                            SubgroupName = Couple.SubgroupName,
+                            SubgroupId = Couple.SubgroupId,
+                            Week = "2",
+                            Day = Couple.Day,
+                            CoupleNum = Couple.CoupleNum,
+                            TimeBegin = Couple.TimeBegin,
+                            TimeEnd = Couple.TimeEnd,
+                            CoupleName = Couple.CoupleName,
+                            CoupleTeacher = Couple.CoupleTeacher,
+                            CoupleAud = Couple.CoupleAud
+                        };                       
+                        Group.Couples.Add(temp);
+                    }
                 }
             }
         }
