@@ -20,10 +20,11 @@ namespace ScheduleParser
         Excel.Application App;
         Excel.Workbook Workbook;
         Excel.Worksheet Worksheet;
+        Excel.Range Range;
         Faculty Faculty;
         Group Group;
         Couple Couple;
-
+        
         public FormMain()
         {
             InitializeComponent();
@@ -56,19 +57,17 @@ namespace ScheduleParser
             JObject json = JObject.Parse(JsonConvert.SerializeObject(Faculty));
             File.WriteAllText(Directory.GetCurrentDirectory() + @"\Schedule.json", json.ToString());
             MessageBox.Show("Done");
-
+            
             App.Quit();
         }
 
         private void ReadGroup()
         {
-            for (var i = 3; i <= 4; i++)
+            for (var columnIndex = 3; columnIndex <= 4; columnIndex++)
             {
-                for (int j = 15; j < 63; j++)
+                for (var rowIndex = 15; rowIndex < 63; rowIndex++)
                 {
                     Couple = new Couple();
-                    var columnIndex = i;
-                    var rowIndex = j;
                     string fullCoupleName = Worksheet.Cells[rowIndex, columnIndex].Text.ToString();
                     if (fullCoupleName == "" || fullCoupleName == " ")
                     {
@@ -83,10 +82,18 @@ namespace ScheduleParser
                     DefineDay(rowIndex);
                     DefineNumAndTime(rowIndex);
                     DefineNameTeacherAndAud(fullCoupleName);
-
+                                        
                     Group.Couples.Add(Couple);
+                    
                     if (Couple.Week == "1")
                     {
+                        Excel.Range cell1 = Worksheet.Cells[rowIndex, columnIndex];
+                        Excel.Range cell2 = Worksheet.Cells[rowIndex + 1, columnIndex];
+                        Range = (Excel.Range)Worksheet.get_Range(cell1, cell2).Cells;
+                        if (!Range.MergeCells)
+                        {
+                            continue;
+                        }
                         Couple temp = new Couple
                         {
                             SubgroupName = Couple.SubgroupName,
@@ -99,7 +106,7 @@ namespace ScheduleParser
                             CoupleName = Couple.CoupleName,
                             CoupleTeacher = Couple.CoupleTeacher,
                             CoupleAud = Couple.CoupleAud
-                        };                       
+                        };
                         Group.Couples.Add(temp);
                     }
                 }
@@ -157,6 +164,52 @@ namespace ScheduleParser
             if (rowIndex >= 39 && rowIndex <= 46) Couple.Day = "thursday";
             if (rowIndex >= 47 && rowIndex <= 54) Couple.Day = "friday";
             if (rowIndex >= 55 && rowIndex <= 62) Couple.Day = "saturday";
+        }
+
+        private void buttonScanTeachers_Click(object sender, EventArgs e)
+        {
+            Faculty fac = JsonConvert.DeserializeObject<Faculty>(File.ReadAllText(
+                Directory.GetCurrentDirectory() + @"\Schedule.json"));
+            List<string> teachers = new List<string>();
+            foreach (var group in fac.Groups)
+            {
+                foreach (var couple in group.Couples)
+                {
+                    if (!teachers.Contains(couple.CoupleTeacher.Trim()))
+                        teachers.Add(couple.CoupleTeacher.Trim());
+                }
+            }
+            
+            comboBoxChooseTeacher.Items.AddRange(teachers.ToArray());
+            comboBoxChooseTeacher.Enabled = true;
+        }
+
+        private void comboBoxChooseTeacher_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            buttonGetTeacherSchedule.Enabled = true;
+        }
+
+        private void buttonGetTeacherSchedule_Click(object sender, EventArgs e)
+        {
+            Faculty facultyToRead = JsonConvert.DeserializeObject<Faculty>(File.ReadAllText(
+                Directory.GetCurrentDirectory() + @"\Schedule.json"));
+            List<TeacherCouple> teacherCouples = new List<TeacherCouple>();
+            //Faculty facultyToWrite = new Faculty();
+            //facultyToWrite.Groups = new List<Group> { new Group() };
+            var teacher = comboBoxChooseTeacher.Text;
+            foreach (var group in facultyToRead.Groups)
+            {
+                foreach (var couple in group.Couples)
+                {
+                    if (couple.CoupleTeacher == teacher)
+                    {
+                        teacherCouples.Add(new TeacherCouple(couple, group.GroupId));
+                    }
+
+                }
+            }
+            string json = JsonConvert.SerializeObject(teacherCouples);
+            MessageBox.Show(json);
         }
     }
 }

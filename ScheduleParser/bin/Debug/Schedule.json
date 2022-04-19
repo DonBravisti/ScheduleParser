@@ -2827,18 +2827,6 @@
           "CoupleNum": "1",
           "TimeBegin": "9:00",
           "TimeEnd": "10:30",
-          "CoupleName": "Мобильная разработка (лаб.)",
-          "CoupleTeacher": "Гудиев Т.В.",
-          "CoupleAud": "ауд.601"
-        },
-        {
-          "SubgroupName": "Подгруппа 1",
-          "SubgroupId": "1",
-          "Week": "2",
-          "Day": "thursday",
-          "CoupleNum": "1",
-          "TimeBegin": "9:00",
-          "TimeEnd": "10:30",
           "CoupleName": "Базы данных (лаб.)",
           "CoupleTeacher": "Гагиев Т.А.",
           "CoupleAud": "ауд.505"
@@ -3195,18 +3183,6 @@
           "SubgroupName": "Подгруппа 2",
           "SubgroupId": "2",
           "Week": "1",
-          "Day": "thursday",
-          "CoupleNum": "1",
-          "TimeBegin": "9:00",
-          "TimeEnd": "10:30",
-          "CoupleName": "Базы данных (лаб.)",
-          "CoupleTeacher": "Гамаонов В.Г.",
-          "CoupleAud": "ауд.505"
-        },
-        {
-          "SubgroupName": "Подгруппа 2",
-          "SubgroupId": "2",
-          "Week": "2",
           "Day": "thursday",
           "CoupleNum": "1",
           "TimeBegin": "9:00",
