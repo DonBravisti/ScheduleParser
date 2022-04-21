@@ -32,7 +32,8 @@ namespace ScheduleParser
 
         
         private void buttonReadSchedule_Click(object sender, EventArgs e)
-        {            
+        {
+            buttonReadSchedule.Enabled = false;
             App = new Excel.Application();
             Workbook = App.Workbooks.Open(Directory.GetCurrentDirectory() + @"\schedule.xlsx");
             Faculty = new Faculty
@@ -40,6 +41,7 @@ namespace ScheduleParser
                 Groups = new List<Group>()
             };
 
+            progressBarJson.Maximum = Workbook.Sheets.Count;            
             for (int r = 1; r <= Workbook.Sheets.Count; r++)
             {
                 Worksheet = Workbook.Sheets[r];
@@ -53,11 +55,15 @@ namespace ScheduleParser
 
                 ReadGroup();
                 Faculty.Groups.Add(Group);
+
+                progressBarJson.Value++;
             }
             JObject json = JObject.Parse(JsonConvert.SerializeObject(Faculty));
             File.WriteAllText(Directory.GetCurrentDirectory() + @"\Schedule.json", json.ToString());
             MessageBox.Show("Done");
-            
+
+            progressBarJson.Value = 0;
+
             App.Quit();
         }
 
@@ -109,6 +115,7 @@ namespace ScheduleParser
                         };
                         Group.Couples.Add(temp);
                     }
+                    
                 }
             }
         }
@@ -186,16 +193,20 @@ namespace ScheduleParser
 
         private void comboBoxChooseTeacher_SelectedIndexChanged(object sender, EventArgs e)
         {
+            comboBoxChooseWeek.Enabled = true;
+        }
+
+        private void comboBoxChooseWeek_SelectedIndexChanged(object sender, EventArgs e)
+        {
             buttonGetTeacherSchedule.Enabled = true;
         }
 
         private void buttonGetTeacherSchedule_Click(object sender, EventArgs e)
         {
+            dataGridViewTeacherSchedule.Rows.Clear();
             Faculty facultyToRead = JsonConvert.DeserializeObject<Faculty>(File.ReadAllText(
                 Directory.GetCurrentDirectory() + @"\Schedule.json"));
             List<TeacherCouple> teacherCouples = new List<TeacherCouple>();
-            //Faculty facultyToWrite = new Faculty();
-            //facultyToWrite.Groups = new List<Group> { new Group() };
             var teacher = comboBoxChooseTeacher.Text;
             foreach (var group in facultyToRead.Groups)
             {
@@ -208,8 +219,52 @@ namespace ScheduleParser
 
                 }
             }
-            string json = JsonConvert.SerializeObject(teacherCouples);
-            MessageBox.Show(json);
+            //string json = JsonConvert.SerializeObject(teacherCouples);
+            //MessageBox.Show(json);
+
+            int dif = 0;
+            for (int i = 0; i < teacherCouples.Count; i++)
+            {
+                if (comboBoxChooseWeek.Text != teacherCouples[i].Week)
+                {
+                    dif++;
+                    continue;
+                }
+                DataGridViewRow row = new DataGridViewRow();
+                dataGridViewTeacherSchedule.Rows.Add(row);
+                dataGridViewTeacherSchedule.Rows[i - dif].Cells[0].Value = teacherCouples[i].Day;
+                dataGridViewTeacherSchedule.Rows[i - dif].Cells[1].Value = teacherCouples[i].CoupleNum;
+                dataGridViewTeacherSchedule.Rows[i - dif].Cells[2].Value = teacherCouples[i].GroupId;
+                dataGridViewTeacherSchedule.Rows[i - dif].Cells[3].Value = teacherCouples[i].SubgroupId;
+                dataGridViewTeacherSchedule.Rows[i - dif].Cells[4].Value = teacherCouples[i].TimeBegin +
+                                                                 " - " + teacherCouples[i].TimeEnd;
+                dataGridViewTeacherSchedule.Rows[i - dif].Cells[5].Value = teacherCouples[i].CoupleName;
+                dataGridViewTeacherSchedule.Rows[i - dif].Cells[6].Value = teacherCouples[i].CoupleAud;
+                dataGridViewTeacherSchedule.Rows[i - dif].Cells[7].Value = DefineDayNum(teacherCouples[i].Day);                
+            }
+            dataGridViewTeacherSchedule.Sort(ColumnDayNums, ListSortDirection.Ascending);
         }
+
+        private string DefineDayNum(string day)
+        {
+            switch (day)
+            {
+                case "monday":
+                    return "1";
+                case "tuesday":
+                    return "2";
+                case "wednesday":
+                    return "3";
+                case "thursday":
+                    return "4";
+                case "friday":
+                    return "5";
+                case "saturday":
+                    return "6";
+            }
+            return "error";
+        }
+
+        
     }
 }

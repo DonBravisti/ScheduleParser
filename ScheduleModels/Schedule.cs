@@ -55,20 +55,26 @@ namespace ScheduleModels
     public class TeacherCouple
     {
         public string CoupleName { get; set; }
-        public string CoupleTeacher { get; set; }
+        public string GroupId { get; set; }
+        public string SubgroupId { get; set; }
         public string CoupleAud { get; set; }
         public string TimeBegin { get; set; }
         public string TimeEnd { get; set; }
         public string CoupleNum { get; set; }
+        public string Day { get; set; }
+        public string Week { get; set; }
 
         public TeacherCouple(Couple couple, string groupId)
         {
             CoupleName = couple.CoupleName;
-            CoupleTeacher = groupId;
+            GroupId = groupId;
             CoupleAud = couple.CoupleAud;
             TimeBegin = couple.TimeBegin;
             TimeEnd = couple.TimeEnd;
             CoupleNum = couple.CoupleNum;
+            Day = couple.Day;
+            Week = couple.Week;
+            SubgroupId = couple.SubgroupId;
         }
         public TeacherCouple()
         {
