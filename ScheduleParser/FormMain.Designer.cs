@@ -33,7 +33,6 @@
             this.buttonScanTeachers = new System.Windows.Forms.Button();
             this.buttonGetTeacherSchedule = new System.Windows.Forms.Button();
             this.dataGridViewTeacherSchedule = new System.Windows.Forms.DataGridView();
-            this.comboBoxChooseWeek = new System.Windows.Forms.ComboBox();
             this.ColumnDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -42,6 +41,7 @@
             this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnAud = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnDayNums = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.comboBoxChooseWeek = new System.Windows.Forms.ComboBox();
             this.progressBarJson = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTeacherSchedule)).BeginInit();
             this.SuspendLayout();
@@ -106,29 +106,15 @@
             this.ColumnName,
             this.ColumnAud,
             this.ColumnDayNums});
-            this.dataGridViewTeacherSchedule.Location = new System.Drawing.Point(11, 146);
+            this.dataGridViewTeacherSchedule.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.dataGridViewTeacherSchedule.Location = new System.Drawing.Point(0, 166);
             this.dataGridViewTeacherSchedule.Name = "dataGridViewTeacherSchedule";
             this.dataGridViewTeacherSchedule.ReadOnly = true;
             this.dataGridViewTeacherSchedule.RowHeadersVisible = false;
             this.dataGridViewTeacherSchedule.RowHeadersWidth = 51;
             this.dataGridViewTeacherSchedule.RowTemplate.Height = 24;
-            this.dataGridViewTeacherSchedule.Size = new System.Drawing.Size(1043, 361);
+            this.dataGridViewTeacherSchedule.Size = new System.Drawing.Size(1067, 361);
             this.dataGridViewTeacherSchedule.TabIndex = 4;
-            // 
-            // comboBoxChooseWeek
-            // 
-            this.comboBoxChooseWeek.Enabled = false;
-            this.comboBoxChooseWeek.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBoxChooseWeek.FormattingEnabled = true;
-            this.comboBoxChooseWeek.Items.AddRange(new object[] {
-            "1",
-            "2"});
-            this.comboBoxChooseWeek.Location = new System.Drawing.Point(13, 50);
-            this.comboBoxChooseWeek.Name = "comboBoxChooseWeek";
-            this.comboBoxChooseWeek.Size = new System.Drawing.Size(228, 24);
-            this.comboBoxChooseWeek.TabIndex = 5;
-            this.comboBoxChooseWeek.Text = "Выберите неделю";
-            this.comboBoxChooseWeek.SelectedIndexChanged += new System.EventHandler(this.comboBoxChooseWeek_SelectedIndexChanged);
             // 
             // ColumnDay
             // 
@@ -136,7 +122,7 @@
             this.ColumnDay.MinimumWidth = 6;
             this.ColumnDay.Name = "ColumnDay";
             this.ColumnDay.ReadOnly = true;
-            this.ColumnDay.Width = 123;
+            this.ColumnDay.Width = 113;
             // 
             // ColumnNum
             // 
@@ -144,7 +130,7 @@
             this.ColumnNum.MinimumWidth = 6;
             this.ColumnNum.Name = "ColumnNum";
             this.ColumnNum.ReadOnly = true;
-            this.ColumnNum.Width = 118;
+            this.ColumnNum.Width = 109;
             // 
             // ColumnGroup
             // 
@@ -195,6 +181,21 @@
             this.ColumnDayNums.Visible = false;
             this.ColumnDayNums.Width = 92;
             // 
+            // comboBoxChooseWeek
+            // 
+            this.comboBoxChooseWeek.Enabled = false;
+            this.comboBoxChooseWeek.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBoxChooseWeek.FormattingEnabled = true;
+            this.comboBoxChooseWeek.Items.AddRange(new object[] {
+            "1",
+            "2"});
+            this.comboBoxChooseWeek.Location = new System.Drawing.Point(13, 50);
+            this.comboBoxChooseWeek.Name = "comboBoxChooseWeek";
+            this.comboBoxChooseWeek.Size = new System.Drawing.Size(228, 24);
+            this.comboBoxChooseWeek.TabIndex = 5;
+            this.comboBoxChooseWeek.Text = "Выберите неделю";
+            this.comboBoxChooseWeek.SelectedIndexChanged += new System.EventHandler(this.comboBoxChooseWeek_SelectedIndexChanged);
+            // 
             // progressBarJson
             // 
             this.progressBarJson.Location = new System.Drawing.Point(770, 107);
@@ -206,7 +207,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.ClientSize = new System.Drawing.Size(1067, 527);
             this.Controls.Add(this.progressBarJson);
             this.Controls.Add(this.comboBoxChooseWeek);
             this.Controls.Add(this.dataGridViewTeacherSchedule);

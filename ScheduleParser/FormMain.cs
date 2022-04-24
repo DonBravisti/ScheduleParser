@@ -28,6 +28,7 @@ namespace ScheduleParser
         public FormMain()
         {
             InitializeComponent();
+            
         }
 
         
