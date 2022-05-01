@@ -1,6 +1,0 @@
-C:\Programs\Microsoft Visual Studio\Projects\ScheduleParser-main\ScheduleModels\bin\Debug\ScheduleModels.dll
-C:\Programs\Microsoft Visual Studio\Projects\ScheduleParser-main\ScheduleModels\bin\Debug\ScheduleModels.pdb
-C:\Programs\Microsoft Visual Studio\Projects\ScheduleParser-main\ScheduleModels\obj\Debug\ScheduleModels.csproj.AssemblyReference.cache
-C:\Programs\Microsoft Visual Studio\Projects\ScheduleParser-main\ScheduleModels\obj\Debug\ScheduleModels.csproj.CoreCompileInputs.cache
-C:\Programs\Microsoft Visual Studio\Projects\ScheduleParser-main\ScheduleModels\obj\Debug\ScheduleModels.dll
-C:\Programs\Microsoft Visual Studio\Projects\ScheduleParser-main\ScheduleModels\obj\Debug\ScheduleModels.pdb
