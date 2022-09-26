@@ -1,0 +1,17 @@
+C:\Programs\Microsoft Visual Studio\Projects\ScheduleParser-main\ScheduleModels\bin\Debug\ScheduleModels.dll
+C:\Programs\Microsoft Visual Studio\Projects\ScheduleParser-main\ScheduleModels\bin\Debug\ScheduleModels.pdb
+C:\Programs\Microsoft Visual Studio\Projects\ScheduleParser-main\ScheduleModels\obj\Debug\ScheduleModels.csproj.AssemblyReference.cache
+C:\Programs\Microsoft Visual Studio\Projects\ScheduleParser-main\ScheduleModels\obj\Debug\ScheduleModels.csproj.CoreCompileInputs.cache
+C:\Programs\Microsoft Visual Studio\Projects\ScheduleParser-main\ScheduleModels\obj\Debug\ScheduleModels.dll
+C:\Programs\Microsoft Visual Studio\Projects\ScheduleParser-main\ScheduleModels\obj\Debug\ScheduleModels.pdb
+C:\Users\Stanislav\Desktop\ScheduleParser-main\ScheduleModels\bin\Debug\ScheduleModels.dll
+C:\Users\Stanislav\Desktop\ScheduleParser-main\ScheduleModels\bin\Debug\ScheduleModels.pdb
+C:\Users\Stanislav\Desktop\ScheduleParser-main\ScheduleModels\obj\Debug\ScheduleModels.csproj.AssemblyReference.cache
+C:\Users\Stanislav\Desktop\ScheduleParser-main\ScheduleModels\obj\Debug\ScheduleModels.csproj.CoreCompileInputs.cache
+C:\Users\Stanislav\Desktop\ScheduleParser-main\ScheduleModels\obj\Debug\ScheduleModels.dll
+C:\Users\Stanislav\Desktop\ScheduleParser-main\ScheduleModels\obj\Debug\ScheduleModels.pdb
+C:\Users\46529\Desktop\ScheduleParser-main\ScheduleModels\bin\Debug\ScheduleModels.dll
+C:\Users\46529\Desktop\ScheduleParser-main\ScheduleModels\bin\Debug\ScheduleModels.pdb
+C:\Users\46529\Desktop\ScheduleParser-main\ScheduleModels\obj\Debug\ScheduleModels.csprojAssemblyReference.cache
+C:\Users\46529\Desktop\ScheduleParser-main\ScheduleModels\obj\Debug\ScheduleModels.dll
+C:\Users\46529\Desktop\ScheduleParser-main\ScheduleModels\obj\Debug\ScheduleModels.pdb
